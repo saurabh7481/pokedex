@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { api } from "@/app/_trpc/client";
 import PokemonCard from "@/app/_components/PokemonCard";
 
-const PokemonForm = () => {
+const SearchByName = () => {
     const [pokemonName, setPokemonName] = useState("");
     const [searchPhrase, setSearchPhrase] = useState("");
     const { data, isLoading, isError } = api.pokemons.getByName.useQuery({
@@ -48,4 +48,4 @@ const PokemonForm = () => {
     );
 };
 
-export default PokemonForm;
+export default SearchByName;

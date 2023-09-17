@@ -1,9 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Provider from "./_trpc/provider";
 import Navbar from "./_components/Navbar";
 import { cn } from "@/utils/cn";
+import Providers from "./_components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,12 +26,10 @@ export default function RootLayout({
             )}
         >
             <body className="min-h-screen bg-slate-50 dark:bg-slate-900 antialiased">
-                <Provider>
+                <Providers>
                     {children}
                     <Navbar />
-                </Provider>
-
-                {/* Allow for more height on mobile */}
+                </Providers>
                 <div className="h-40 md:hidden" />
             </body>
         </html>
