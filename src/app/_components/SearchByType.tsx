@@ -12,7 +12,9 @@ import Paragraph from "./ui/Paragraph";
 import Image from "next/image";
 import Button from "./ui/Button";
 import { Loader2Icon } from "lucide-react";
+import { Pokemon } from "@/utils/types";
 
+// Custom footer is defined here. This will replace the default pagination footer.
 declare module "@mui/x-data-grid" {
     interface FooterPropsOverrides {
         rowcount: number;
@@ -62,7 +64,7 @@ const SearchByType: React.FC = () => {
         undefined
     );
 
-    const [rows, setRows] = useState<any[]>([]);
+    const [rows, setRows] = useState<Pokemon[]>([]);
 
     const {
         data,
@@ -99,7 +101,12 @@ const SearchByType: React.FC = () => {
             headerName: "Sprite",
             width: 200,
             renderCell: (params) => (
-                <Image src={params.value} alt="sprite" height={20} width={20} />
+                <Image
+                    src={params.value}
+                    alt="sprite"
+                    height={100}
+                    width={100}
+                />
             ),
         },
     ];

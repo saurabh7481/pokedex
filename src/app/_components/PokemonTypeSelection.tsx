@@ -21,7 +21,6 @@ const PokemonTypeSelection: React.FC<PokemonTypeSelectionProps> = ({
     selectType,
 }) => {
     const handleTypeChange = (value: string) => {
-        console.log(value);
         const selectedType = value;
         selectType(selectedType === "none" ? undefined : selectedType);
     };
