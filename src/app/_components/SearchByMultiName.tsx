@@ -24,7 +24,7 @@ const SearchByMultiName = () => {
                             <PokemonCard
                                 key={d.id}
                                 name={d.name}
-                                type={d.types.split(",")[0]}
+                                types={d.types}
                                 image={d.sprite}
                             />
                         ))

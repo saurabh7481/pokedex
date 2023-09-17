@@ -55,14 +55,10 @@ const SearchByType: React.FC = () => {
 
     return (
         <div>
-            <h1>Pokemon Type Selection</h1>
             <PokemonTypeSelection
                 selectedType={selectedType}
                 selectType={handleTypeSelect}
             />
-            <div>
-                <h2>Selected Pokemon Type: {selectedType ?? "None"}</h2>
-            </div>
             {rows.length ? (
                 <div style={{ height: 400, width: "100%" }}>
                     <DataGrid
