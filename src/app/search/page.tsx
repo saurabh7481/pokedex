@@ -6,8 +6,8 @@ import Paragraph from "@/ui/Paragraph";
 import SearchTabs from "@/components/SearchTabs";
 
 export const metadata: Metadata = {
-    title: "Documentation | Solv.it",
-    description: "Free text similarity API",
+    title: "Search | Pokedex",
+    description: "Free pokemon search",
 };
 
 interface pageProps {}
