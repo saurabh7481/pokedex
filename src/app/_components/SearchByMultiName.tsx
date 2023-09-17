@@ -8,12 +8,18 @@ const SearchByMultiName = () => {
     const [names, setNames] = useState<Array<string>>([]);
     const selectedTags = (tags: Array<string>) => {
         setNames(tags);
+        refetch();
     };
 
-    const { data, isLoading, isError } =
-        api.pokemons.getByNameMultiple.useQuery({
-            names,
-        });
+    const { data, isInitialLoading, isError, refetch } =
+        api.pokemons.getByNameMultiple.useQuery(
+            {
+                names,
+            },
+            {
+                enabled: names.length ? true : false,
+            }
+        );
 
     return (
         <div>
@@ -37,7 +43,7 @@ const SearchByMultiName = () => {
                     </>
                 )}
             </div>
-            {isLoading && <Paragraph>Loading......</Paragraph>}
+            {isInitialLoading && <Paragraph>Loading......</Paragraph>}
             {isError && <Paragraph>{"Something went wrong :/"}</Paragraph>}
         </div>
     );

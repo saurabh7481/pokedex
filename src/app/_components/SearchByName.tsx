@@ -11,9 +11,14 @@ import { Loader2Icon } from "lucide-react";
 const SearchByName = () => {
     const [pokemonName, setPokemonName] = useState("");
     const [searchPhrase, setSearchPhrase] = useState("");
-    const { data, isLoading, isError } = api.pokemons.getByName.useQuery({
-        name: searchPhrase,
-    });
+    const { data, isInitialLoading, isError } = api.pokemons.getByName.useQuery(
+        {
+            name: searchPhrase,
+        },
+        {
+            enabled: !!searchPhrase,
+        }
+    );
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -35,7 +40,7 @@ const SearchByName = () => {
                         onChange={(e) => setPokemonName(e.target.value)}
                     />
                     <Button type="submit">
-                        {isLoading ? (
+                        {isInitialLoading ? (
                             <Loader2Icon className="animate-spin" />
                         ) : (
                             "Search"
@@ -54,7 +59,7 @@ const SearchByName = () => {
                     </>
                 )}
             </div>
-            {isLoading && <Paragraph>Loading......</Paragraph>}
+            {isInitialLoading && <Paragraph>Loading......</Paragraph>}
             {isError && <Paragraph>{"Something went wrong :/"}</Paragraph>}
         </>
     );

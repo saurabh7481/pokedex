@@ -66,7 +66,7 @@ const SearchByType: React.FC = () => {
 
     const {
         data,
-        isLoading,
+        isInitialLoading,
         isError,
         fetchNextPage,
         hasNextPage,
@@ -79,6 +79,7 @@ const SearchByType: React.FC = () => {
         {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
             initialCursor: 1,
+            enabled: !!selectedType,
         }
     );
 
@@ -154,7 +155,7 @@ const SearchByType: React.FC = () => {
                 </div>
             ) : (
                 <Paragraph className="mt-10">
-                    {isLoading
+                    {isInitialLoading
                         ? "Loading..."
                         : "Results will be displayed here."}
                 </Paragraph>
