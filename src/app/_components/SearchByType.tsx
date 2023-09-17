@@ -4,6 +4,8 @@ import PokemonTypeSelection from "@/components/PokemonTypeSelection";
 import { api } from "../_trpc/client";
 import { useTheme } from "next-themes";
 import { ThemeProvider, createTheme } from "@mui/material";
+import Paragraph from "./ui/Paragraph";
+import Image from "next/image";
 
 const SearchByType: React.FC = () => {
     const { theme: appTheme } = useTheme();
@@ -56,6 +58,14 @@ const SearchByType: React.FC = () => {
         { field: "id", headerName: "ID", width: 100 },
         { field: "name", headerName: "Name", width: 200 },
         { field: "types", headerName: "Type", width: 200 },
+        {
+            field: "sprite",
+            headerName: "Sprite",
+            width: 200,
+            renderCell: (params) => (
+                <Image src={params.value} alt="sprite" height={20} width={20} />
+            ),
+        },
     ];
 
     const handleTypeSelect = (type: string | undefined) => {
@@ -103,7 +113,9 @@ const SearchByType: React.FC = () => {
                     </ThemeProvider>
                 </div>
             ) : (
-                "No Data"
+                <Paragraph className="mt-10">
+                    Results will display here.
+                </Paragraph>
             )}
         </div>
     );

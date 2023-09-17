@@ -28,7 +28,7 @@ const PokemonTypeSelection: React.FC<PokemonTypeSelectionProps> = ({
 
     return (
         <div>
-            <label className="pb-5 dark:text-white text-amber-950">
+            <label className="dark:text-white text-amber-950">
                 Select a Pokemon Type:
             </label>
             <Select onValueChange={handleTypeChange} value={selectedType ?? ""}>
@@ -36,11 +36,18 @@ const PokemonTypeSelection: React.FC<PokemonTypeSelectionProps> = ({
                     <SelectValue placeholder="Select a type" className="text-white"/>
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectGroup>
+                    <SelectGroup className="overflow-scroll h-60">
                         <SelectLabel>Type</SelectLabel>
-                        <SelectItem value="fire">Fire</SelectItem>
+                        <SelectItem value="normal">Normal</SelectItem>
                         <SelectItem value="water">Water</SelectItem>
                         <SelectItem value="grass">Grass</SelectItem>
+                        <SelectItem value="fire">Fire</SelectItem>
+                        <SelectItem value="fighting">Fighting</SelectItem>
+                        <SelectItem value="psychic">Psychic</SelectItem>
+                        <SelectItem value="bug">Bug</SelectItem>
+                        <SelectItem value="electric">Electric</SelectItem>
+                        <SelectItem value="ground">Ground</SelectItem>
+                        <SelectItem value="poison">Poison</SelectItem>
                     </SelectGroup>
                 </SelectContent>
             </Select>
