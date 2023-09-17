@@ -17,7 +17,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
                         process.env.NODE_ENV === "development"
                             ? "http://localhost:3000/api/trpc"
                             : process.env.VERCEL_TRPC_URL ||
-                              "http://localhost:3000/api/trpc",
+                              "https://pokedex-eight-red.vercel.app/api/trpc",
                 }),
             ],
         })
