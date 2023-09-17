@@ -13,7 +13,11 @@ export default function Provider({ children }: { children: React.ReactNode }) {
             transformer: superjson,
             links: [
                 httpBatchLink({
-                    url: "http://localhost:3000/api/trpc",
+                    url:
+                        process.env.NODE_ENV === "development"
+                            ? "http://localhost:3000/api/trpc"
+                            : process.env.VERCEL_URL ||
+                              "http://localhost:3000/api/trpc",
                 }),
             ],
         })
