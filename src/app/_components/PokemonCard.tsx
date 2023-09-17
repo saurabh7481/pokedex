@@ -15,9 +15,9 @@ const PokemonCard: FC<PokemonCardProps> = ({ image, name, types }) => {
             <Image
                 src={image}
                 alt="Image"
-                // className="w-full"
-                height={40}
-                width={35}
+                className="w-full"
+                height={100}
+                width={100}
             />
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">
