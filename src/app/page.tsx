@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Heading from "./_components/ui/Heading";
 import Paragraph from "./_components/ui/Paragraph";
+import { buttonVariants } from "./_components/ui/Button";
 
 export const metadata: Metadata = {
     title: "Pokedex | Home",
@@ -25,6 +26,13 @@ export default function Home() {
                     <Paragraph className="max-w-xl lg:text-left">
                         Use this tool to search pokemons with names and types.
                     </Paragraph>
+
+                    <Link
+                        href="/search"
+                        className={buttonVariants({ variant: "outline" })}
+                    >
+                        Start Searching
+                    </Link>
 
                     <div className="relative w-full max-w-xl lg:max-w-3xl lg:left-1/2 aspect-square lg:absolute">
                         <Image
