@@ -1,11 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import {
+    DataGrid,
+    GridSlotsComponentsProps,
+    type GridColDef,
+} from "@mui/x-data-grid";
 import PokemonTypeSelection from "@/components/PokemonTypeSelection";
 import { api } from "../_trpc/client";
 import { useTheme } from "next-themes";
 import { ThemeProvider, createTheme } from "@mui/material";
 import Paragraph from "./ui/Paragraph";
 import Image from "next/image";
+import Button from "./ui/Button";
+import { Loader2Icon } from "lucide-react";
+
+declare module "@mui/x-data-grid" {
+    interface FooterPropsOverrides {
+        rowcount: number;
+        isFetchingNextPage: boolean;
+        hasNextPage: boolean | undefined;
+        fetchNextPage: () => Promise<any>;
+    }
+}
+
+const CustomFooter = (
+    props: NonNullable<GridSlotsComponentsProps["footer"]>
+) => {
+    return (
+        <div className="m-4 p-4 flex justify-between items-center">
+            <span>
+                {props.isFetchingNextPage ? (
+                    <Loader2Icon className="mx-3 animate-spin" />
+                ) : (
+                    <span>Total Rows: {props.rowcount}</span>
+                )}
+            </span>
+            {props.isFetchingNextPage ? (
+                <Button disabled>
+                    <Loader2Icon className="mr-3 animate-spin" />
+                    {"Loading..."}
+                </Button>
+            ) : props.hasNextPage ? (
+                <Button onClick={() => props.fetchNextPage?.()}>
+                    {"Load More"}
+                </Button>
+            ) : (
+                <span>That&apos;s all we have right now</span>
+            )}
+        </div>
+    );
+};
 
 const SearchByType: React.FC = () => {
     const { theme: appTheme } = useTheme();
@@ -46,14 +89,6 @@ const SearchByType: React.FC = () => {
         }
     }, [data]);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (isError) {
-        return <div>Error fetching data</div>;
-    }
-
     const columns: GridColDef[] = [
         { field: "id", headerName: "ID", width: 100 },
         { field: "name", headerName: "Name", width: 200 },
@@ -91,6 +126,17 @@ const SearchByType: React.FC = () => {
                                 rowCount={rows.length}
                                 pagination
                                 paginationMode="server"
+                                slots={{
+                                    footer: CustomFooter,
+                                }}
+                                slotProps={{
+                                    footer: {
+                                        rowcount: rows.length,
+                                        hasNextPage,
+                                        isFetchingNextPage,
+                                        fetchNextPage,
+                                    },
+                                }}
                                 style={{
                                     backgroundColor:
                                         appTheme === "light"
@@ -102,19 +148,15 @@ const SearchByType: React.FC = () => {
                             <button
                                 onClick={() => fetchNextPage()}
                                 disabled={!hasNextPage || isFetchingNextPage}
-                            >
-                                {isFetchingNextPage
-                                    ? "Loading more..."
-                                    : hasNextPage
-                                    ? "Load More"
-                                    : "Nothing more to load"}
-                            </button>
+                            ></button>
                         </div>
                     </ThemeProvider>
                 </div>
             ) : (
                 <Paragraph className="mt-10">
-                    Results will display here.
+                    {isLoading
+                        ? "Loading..."
+                        : "Results will be displayed here."}
                 </Paragraph>
             )}
         </div>

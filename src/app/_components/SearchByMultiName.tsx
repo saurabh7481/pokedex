@@ -17,8 +17,13 @@ const SearchByMultiName = () => {
 
     return (
         <div>
-            <TagsInput selectedTags={selectedTags} />
-            <div className="grid grid-cols-2 gap-4">
+            <TagsInput
+                selectedTags={selectedTags}
+                placeholder={
+                    "Type pokemon name and press enter. Ex - Butterfree"
+                }
+            />
+            <div className="md:grid md:grid-cols-2 gap-4">
                 {data && data?.length > 0 && (
                     <>
                         {data.map((d) => (
@@ -33,7 +38,7 @@ const SearchByMultiName = () => {
                 )}
             </div>
             {isLoading && <Paragraph>Loading......</Paragraph>}
-            {isError && <Paragraph>{'Something went wrong :/'}</Paragraph>}
+            {isError && <Paragraph>{"Something went wrong :/"}</Paragraph>}
         </div>
     );
 };

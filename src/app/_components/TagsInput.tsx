@@ -3,9 +3,10 @@ import { Input } from "./ui/Input";
 
 interface TagsInputProps {
     selectedTags: (tags: Array<string>) => void;
+    placeholder: string;
 }
 
-const TagsInput: FC<TagsInputProps> = ({ selectedTags }) => {
+const TagsInput: FC<TagsInputProps> = ({ selectedTags, placeholder }) => {
     const [tags, setTags] = useState<string[]>([]);
     const [inputValue, setInputValue] = useState<string>("");
 
@@ -45,7 +46,7 @@ const TagsInput: FC<TagsInputProps> = ({ selectedTags }) => {
             <Input
                 type="text"
                 className="w-full px-2 py-1 border border-gray-300 rounded-md mt-2"
-                placeholder="Enter hobbies..."
+                placeholder={placeholder}
                 value={inputValue}
                 onChange={handleInputChange}
                 onKeyDown={handleInputKeyDown}
