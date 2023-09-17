@@ -16,7 +16,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
                     url:
                         process.env.NODE_ENV === "development"
                             ? "http://localhost:3000/api/trpc"
-                            : process.env.VERCEL_URL ||
+                            : process.env.VERCEL_TRPC_URL ||
                               "http://localhost:3000/api/trpc",
                 }),
             ],
