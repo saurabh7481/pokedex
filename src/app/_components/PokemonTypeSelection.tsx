@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import {
     Select,
@@ -19,17 +21,19 @@ const PokemonTypeSelection: React.FC<PokemonTypeSelectionProps> = ({
     selectType,
 }) => {
     const handleTypeChange = (value: string) => {
-        console.log(value)
+        console.log(value);
         const selectedType = value;
         selectType(selectedType === "none" ? undefined : selectedType);
     };
 
     return (
         <div>
-            <label className="pb-5">Select a Pokemon Type:</label>
+            <label className="pb-5 dark:text-white text-amber-950">
+                Select a Pokemon Type:
+            </label>
             <Select onValueChange={handleTypeChange} value={selectedType ?? ""}>
                 <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a type" />
+                    <SelectValue placeholder="Select a type" className="text-white"/>
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
+import Heading from "./ui/Heading";
+import Paragraph from "./ui/Paragraph";
 
 interface PokemonCardProps {
     name: string;
@@ -19,11 +21,13 @@ const PokemonCard: FC<PokemonCardProps> = ({ image, name, types }) => {
             />
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">
-                    {name.toUpperCase()}
+                    <Heading size={"sm"} className="pb-4">
+                        {name.toUpperCase()}
+                    </Heading>
                 </div>
-                <p className="text-gray-700 text-base">
+                <Paragraph className="text-gray-700 text-base">
                     Type : {types.toUpperCase()}
-                </p>
+                </Paragraph>
             </div>
         </div>
     );

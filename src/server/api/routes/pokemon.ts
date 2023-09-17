@@ -66,6 +66,7 @@ export const pokemonRouter = createTRPCRouter({
             return {
                 pokemons,
                 nextCursor,
+                type: input.type,
             };
         }),
 });

@@ -2,8 +2,17 @@ import React, { useEffect, useState } from "react";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import PokemonTypeSelection from "@/components/PokemonTypeSelection";
 import { api } from "../_trpc/client";
+import { useTheme } from "next-themes";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 const SearchByType: React.FC = () => {
+    const { theme: appTheme } = useTheme();
+
+    const theme = createTheme({
+        palette: {
+            mode: appTheme === "light" ? "light" : "dark",
+        },
+    });
     const [selectedType, setSelectedType] = useState<string | undefined>(
         undefined
     );
@@ -50,34 +59,48 @@ const SearchByType: React.FC = () => {
     ];
 
     const handleTypeSelect = (type: string | undefined) => {
+        if (type !== selectedType) {
+            setRows([]);
+        }
         setSelectedType(type);
     };
 
     return (
-        <div>
+        <div className="flex-col">
             <PokemonTypeSelection
                 selectedType={selectedType}
                 selectType={handleTypeSelect}
             />
             {rows.length ? (
-                <div style={{ height: 400, width: "100%" }}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        rowCount={rows.length}
-                        pagination
-                        paginationMode="server"
-                    />
-                    <button
-                        onClick={() => fetchNextPage()}
-                        disabled={!hasNextPage || isFetchingNextPage}
-                    >
-                        {isFetchingNextPage
-                            ? "Loading more..."
-                            : hasNextPage
-                            ? "Load More"
-                            : "Nothing more to load"}
-                    </button>
+                <div className="mt-6">
+                    <ThemeProvider theme={theme}>
+                        <div style={{ height: 400, width: "100%" }}>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                rowCount={rows.length}
+                                pagination
+                                paginationMode="server"
+                                style={{
+                                    backgroundColor:
+                                        appTheme === "light"
+                                            ? "white"
+                                            : "#152238",
+                                    fontSize: "1rem",
+                                }}
+                            />
+                            <button
+                                onClick={() => fetchNextPage()}
+                                disabled={!hasNextPage || isFetchingNextPage}
+                            >
+                                {isFetchingNextPage
+                                    ? "Loading more..."
+                                    : hasNextPage
+                                    ? "Load More"
+                                    : "Nothing more to load"}
+                            </button>
+                        </div>
+                    </ThemeProvider>
                 </div>
             ) : (
                 "No Data"
